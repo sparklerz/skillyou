@@ -44,6 +44,7 @@ app.post("/search", (req, res, next) => {
 
 
     const post = req.body;
+    console.log(post);
 
     searched_for = '';
 
@@ -415,21 +416,25 @@ app.post("/search", (req, res, next) => {
     }
 
     if(searched_for == 'problem solving in technology rich environment'){
+        console.log(test_response_problem_solving_in_technology_rich_environment);
         res.status(201).json(
             test_response_problem_solving_in_technology_rich_environment             
         );
     }
     else if(searched_for == 'numeracy'){
+        console.log(test_response_numeracy);
         res.status(201).json(
             test_response_numeracy            
         );
     }
     else if(searched_for == 'literacy'){
+        console.log(test_response_literacy);
         res.status(201).json(
             test_response_literacy              
         );
     }
     else if(searched_for == 'all'){
+        console.log(test_response_all);
         res.status(201).json(
             test_response_all             
         );
@@ -440,6 +445,7 @@ app.post("/search", (req, res, next) => {
 app.post("/select", (req, res, next) => {
     
     const post = req.body;
+    console.log(post);
 
     bap_uri = post.context.bap_uri;
 
@@ -609,16 +615,19 @@ app.post("/select", (req, res, next) => {
 
 
     if(post.message.order.items[0].id == 'lt'){
+        console.log(select_literacy_response);
         res.status(201).json(
             select_literacy_response             
         );
     }
     else if(post.message.order.items[0].id == 'nt'){
+        console.log(select_numeracy_response);
         res.status(201).json(
             select_numeracy_response            
         );
     }
     else if(post.message.order.items[0].id == 'pst'){
+        console.log(select_problem_solving_in_technology_rich_environment_response);
         res.status(201).json(
             select_problem_solving_in_technology_rich_environment_response              
         );
@@ -628,6 +637,7 @@ app.post("/select", (req, res, next) => {
 app.post("/init", (req, res, next) => {
     
     const post = req.body;
+    console.log(post);
     
     bap_uri = post.context.bap_uri;
 
@@ -826,16 +836,19 @@ app.post("/init", (req, res, next) => {
     }
 
     if(post.message.order.items[0].id == 'lt'){
+        console.log(init_literacy_response);
         res.status(201).json(
             init_literacy_response             
         );
     }
     else if(post.message.order.items[0].id == 'nt'){
+        console.log(init_numeracy_response);
         res.status(201).json(
             init_numeracy_response         
         );
     }
     else if(post.message.order.items[0].id == 'pst'){
+        console.log(init_problem_solving_in_technology_rich_environment_response);
         res.status(201).json(
             init_problem_solving_in_technology_rich_environment_response          
         );
@@ -845,6 +858,7 @@ app.post("/init", (req, res, next) => {
 app.post("/confirm", (req, res, next) => {
     
     const post = req.body;
+    console.log(post);
 
     bap_uri = post.context.bap_uri;
 
@@ -1055,16 +1069,19 @@ app.post("/confirm", (req, res, next) => {
     }
 
     if(post.message.order.items[0].id == 'lt'){
+        console.log(confirm_literacy_response);
         res.status(201).json(
             confirm_literacy_response             
         );
     }
     else if(post.message.order.items[0].id == 'nt'){
+        console.log(confirm_numeracy_response);
         res.status(201).json(
             confirm_numeracy_response         
         );
     }
     else if(post.message.order.items[0].id == 'pst'){
+        console.log(confirm_problem_solving_in_technology_rich_environment_response);
         res.status(201).json(
             confirm_problem_solving_in_technology_rich_environment_response          
         );
