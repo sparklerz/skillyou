@@ -64,4 +64,34 @@ app.get("/api/posts", (req, res, next) => {
     });
 });
 
+app.post("/search", (req, res, next) => {
+    const post = req.body;
+    console.log(post);
+    res.status(201).json({
+      message: 'Search request received successfully'
+    });
+});
+
+app.post("get_the_bap_url/on_search", (req, res, next) => {//url has to be changed
+    //schema has to be changed
+    const posts = [
+        {
+          id: "fdf12421l",
+          title: "First server-side post",
+          content: "This is coming from the server"
+        },
+        {
+          id: "ksajflaj132",
+          title: "Second server-side post",
+          content: "This is coming from the server!"
+        }
+      ];
+      res.status(200).json({
+        message: "Posts fetched succesfully!",
+        posts: posts
+      });
+});
+
+//replicate the same for select, init, confirm
+
 module.exports = app;
