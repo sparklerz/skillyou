@@ -28,6 +28,14 @@ app.use((req, res, next) => {
     next();
   });
 
+ app.get("/", (req, res, next) => {
+    const post = req.body;
+    console.log(post);
+    res.status(200).json({
+      message: 'Skillyou is ready! Are you?'
+    });
+});
+
 
 app.post("/api/posts", (req, res, next) => {
     const post = req.body;
