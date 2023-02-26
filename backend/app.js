@@ -64,7 +64,7 @@ app.get("/api/posts", (req, res, next) => {
     });
 });
 
-app.post("/search", (req, res, next) => {
+app.post("/search", (req, res, next) => {//search request has to be assimilated
     const post = req.body;
     console.log(post);
     res.status(201).json({
@@ -93,5 +93,29 @@ app.post("get_the_bap_url/on_search", (req, res, next) => {//url has to be chang
 });
 
 //replicate the same for select, init, confirm
+
+app.post("/select", (req, res, next) => {//select request has to be assimilated
+    const post = req.body;
+    console.log(post);
+    res.status(201).json({
+      message: 'select request received successfully'
+    });
+});
+
+app.post("/init", (req, res, next) => {//init request has to be assimilated
+    const post = req.body;
+    console.log(post);
+    res.status(201).json({
+      message: 'init request received successfully'
+    });
+});
+
+app.post("/confirm", (req, res, next) => {//confirm request has to be assimilated
+    const post = req.body;
+    console.log(post);
+    res.status(201).json({
+      message: 'confirm request received successfully'
+    });
+});
 
 module.exports = app;
