@@ -12,15 +12,6 @@ const bpp_id = 'skillyou-production.up.railway.app';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use((req, res, next) => {
-//   console.log('First middleware');
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   res.send('Hello from express!');
-// });
-
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -32,7 +23,7 @@ app.use((req, res, next) => {
       "GET, POST, PATCH, DELETE, OPTIONS"
     );
     next();
-  });
+});
 
 app.get("/", (req, res, next) => {
     const post = req.body;
@@ -42,35 +33,7 @@ app.get("/", (req, res, next) => {
     });
 });
 
-
-app.post("/api/posts", (req, res, next) => {
-    const post = req.body;
-    console.log(post);
-    res.status(201).json({
-      message: 'Post added successfully'
-    });
-});
-
-app.get("/api/posts", (req, res, next) => {
-    const posts = [
-      {
-        id: "fdf12421l",
-        title: "First server-side post",
-        content: "This is coming from the server"
-      },
-      {
-        id: "ksajflaj132",
-        title: "Second server-side post",
-        content: "This is coming from the server!"
-      }
-    ];
-    res.status(200).json({
-      message: "Posts fetched succesfully!",
-      posts: posts
-    });
-});
-
-app.post("/search", (req, res, next) => {//search request has to be assimilated
+app.post("/search", (req, res, next) => {
     const literacy = 'liter';
     const english = 'english';
     const number = 'number';
@@ -81,13 +44,10 @@ app.post("/search", (req, res, next) => {//search request has to be assimilated
 
 
     const post = req.body;
-    console.log(post);
 
     searched_for = '';
 
     if(post.message.intent.hasOwnProperty('item')){
-
-        console.log(post.message.intent.item.descriptor.name);
 
         if((post.message.intent.item.descriptor.name.indexOf( technology ) > -1) || (post.message.intent.item.descriptor.name.indexOf( problem_solving ) > -1))
         {
@@ -110,8 +70,6 @@ app.post("/search", (req, res, next) => {//search request has to be assimilated
     }
     else if(post.message.intent.hasOwnProperty('category')) {
 
-        console.log(post.message.intent.category.descriptor.name);
-
         if((post.message.intent.category.descriptor.name.indexOf( technology ) > -1) || (post.message.intent.category.descriptor.name.indexOf( problem_solving ) > -1))
         {
             searched_for = 'problem solving in technology rich environment';
@@ -132,214 +90,15 @@ app.post("/search", (req, res, next) => {//search request has to be assimilated
         }
     }    
 
-    //console.log(post.context.bap_uri);
-
     bap_uri = post.context.bap_uri;
 
     bap_id = post.context.bap_id;
 
     var today = new Date().getTime();;
-    //today.setHours(today.getHours() + 4);
 
     var today_plus_onehour = new Date(today + 1 * 60 * 60 * 1000);
 
     var one_hour_from_now = today_plus_onehour.toString();
-
-    // console.log(one_hour_from_now);
-
-    // console.log(new Date().toString());
-
-    //schema has to be changed
-    //send a message - take a quick test here before starting a course 
-
-    //even when mentors are searched - suggest taking a test first
-
-    // const search_response = {
-    //     "context": {
-    //         "domain": "dsep:courses",
-    //         "version": "1.0.0",
-    //         "action": "on_search",
-    //         "bap_id": "dsep-protocol.becknprotocol.io",
-    //         "bap_uri": "https://dsep-protocol-network.becknprotocol.io/",
-    //         "transaction_id": "a9aaecca-10b7-4d19-b640-b047a7c62196",
-    //         "message_id": "254ee52f-a3f1-4d2d-9e12-6483edd8d0e1",
-    //         "ttl": "PT10M",
-    //         "timestamp": "2023-02-26T07:05:14.814Z",
-    //         "bpp_id": bpp_id,
-    //         "bpp_uri": bpp_uri
-    //     },
-    //     "message": {
-    //         "catalog": {
-    //             "descriptor": {
-    //                 "name": "Catalog for python"
-    //             },
-    //             "providers": [
-    //                 {
-    //                     "id": "CEC",
-    //                     "descriptor": {
-    //                         "name": "CEC"
-    //                     },
-    //                     "categories": [
-    //                         {
-    //                             "id": "COMP_SCI_ENGG",
-    //                             "parent_category_id": "COMP_SCI_ENGG",
-    //                             "descriptor": {
-    //                                 "name": "COMP_SCI_ENGG"
-    //                             }
-    //                         },
-    //                         {
-    //                             "id": "COMP_SCI_ENGG",
-    //                             "parent_category_id": "COMP_SCI_ENGG",
-    //                             "descriptor": {
-    //                                 "name": "COMP_SCI_ENGG"
-    //                             }
-    //                         }
-    //                     ],
-    //                     "items": [
-    //                         {
-    //                             "id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDI=",
-    //                             "parent_item_id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDI=",
-    //                             "descriptor": {
-    //                                 "name": "Problem solving Aspects and Python Programming",
-    //                                 "long_desc": "",
-    //                                 "images": [
-    //                                     {
-    //                                         "url": "https://storage.googleapis.com/swayam-node2-production.appspot.com/assets/img/cec20_cs04/Course%20Image.png"
-    //                                     }
-    //                                 ]
-    //                             },
-    //                             "price": {
-    //                                 "currency": "INR",
-    //                                 "value": "0"
-    //                             },
-    //                             "category_id": "COMP_SCI_ENGG",
-    //                             "recommended": false,
-    //                             "time": {
-    //                                 "label": "Course Schedule",
-    //                                 "duration": "P12W",
-    //                                 "range": {
-    //                                     "start": "2023-01-17T18:30:00.000000Z",
-    //                                     "end": "2023-04-09T18:29:00.000000Z"
-    //                                 }
-    //                             },
-    //                             "rating": "4",
-    //                             "tags": [
-    //                                 {
-    //                                     "descriptor": {
-    //                                         "name": "courseInfo"
-    //                                     },
-    //                                     "list": [
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "credits"
-    //                                             },
-    //                                             "value": "4"
-    //                                         },
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "instructors"
-    //                                             },
-    //                                             "value": "Dr.S.Malliga, Dr.R.Thangarajan, Dr.S.V.Kogilavani"
-    //                                         },
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "offeringInstitue"
-    //                                             },
-    //                                             "value": "Kongu Engineering College"
-    //                                         },
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "url"
-    //                                             },
-    //                                             "value": "https://onlinecourses.swayam2.ac.in/cec23_cs02/preview"
-    //                                         },
-    //                                         {
-    //                                             "decsriptor": {
-    //                                                 "name": "enrollmentEndDate"
-    //                                             },
-    //                                             "value": "2023-02-28T18:29:00.000000Z"
-    //                                         }
-    //                                     ],
-    //                                     "display": true
-    //                                 }
-    //                             ],
-    //                             "rateable": false
-    //                         },
-    //                         {
-    //                             "id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDY=",
-    //                             "parent_item_id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDY=",
-    //                             "descriptor": {
-    //                                 "name": "Programming in Python",
-    //                                 "long_desc": "",
-    //                                 "images": [
-    //                                     {
-    //                                         "url": "https://storage.googleapis.com/swayam-node2-production.appspot.com/assets/img/cec22_cs20/pymainlogo.jpg"
-    //                                     }
-    //                                 ]
-    //                             },
-    //                             "price": {
-    //                                 "currency": "INR",
-    //                                 "value": "0"
-    //                             },
-    //                             "category_id": "COMP_SCI_ENGG",
-    //                             "recommended": false,
-    //                             "time": {
-    //                                 "label": "Course Schedule",
-    //                                 "duration": "P12W",
-    //                                 "range": {
-    //                                     "start": "2023-01-22T18:30:00.000000Z",
-    //                                     "end": "2023-04-16T18:29:00.000000Z"
-    //                                 }
-    //                             },
-    //                             "rating": "5",
-    //                             "tags": [
-    //                                 {
-    //                                     "descriptor": {
-    //                                         "name": "courseInfo"
-    //                                     },
-    //                                     "list": [
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "credits"
-    //                                             },
-    //                                             "value": "4"
-    //                                         },
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "instructors"
-    //                                             },
-    //                                             "value": "Dr. Rizwan Rehman"
-    //                                         },
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "offeringInstitue"
-    //                                             },
-    //                                             "value": "Dibrugarh University"
-    //                                         },
-    //                                         {
-    //                                             "descriptor": {
-    //                                                 "name": "url"
-    //                                             },
-    //                                             "value": "https://onlinecourses.swayam2.ac.in/cec23_cs06/preview"
-    //                                         },
-    //                                         {
-    //                                             "decsriptor": {
-    //                                                 "name": "enrollmentEndDate"
-    //                                             },
-    //                                             "value": "2023-02-28T18:29:00.000000Z"
-    //                                         }
-    //                                     ],
-    //                                     "display": true
-    //                                 }
-    //                             ],
-    //                             "rateable": false
-    //                         }
-    //                     ]
-    //                 }
-    //             ]
-    //         }
-    //     }
-    // }
 
     const test_response_literacy = {
         "context": {
@@ -678,228 +437,9 @@ app.post("/search", (req, res, next) => {//search request has to be assimilated
 
 });
 
-//schema suggesting courses below
-// const search_response = {
-//     "context": {
-//         "domain": "dsep:courses",
-//         "version": "1.0.0",
-//         "action": "on_search",
-//         "bap_id": "dsep-protocol.becknprotocol.io",
-//         "bap_uri": "https://dsep-protocol-network.becknprotocol.io/",
-//         "transaction_id": "a9aaecca-10b7-4d19-b640-b047a7c62196",
-//         "message_id": "254ee52f-a3f1-4d2d-9e12-6483edd8d0e1",
-//         "ttl": "PT10M",
-//         "timestamp": "2023-02-26T07:05:14.814Z",
-//         "bpp_id": bpp_id,
-//         "bpp_uri": bpp_uri
-//     },
-//     "message": {
-//         "catalog": {
-//             "descriptor": {
-//                 "name": "Catalog for python"
-//             },
-//             "providers": [
-//                 {
-//                     "id": "CEC",
-//                     "descriptor": {
-//                         "name": "CEC"
-//                     },
-//                     "categories": [
-//                         {
-//                             "id": "COMP_SCI_ENGG",
-//                             "parent_category_id": "COMP_SCI_ENGG",
-//                             "descriptor": {
-//                                 "name": "COMP_SCI_ENGG"
-//                             }
-//                         },
-//                         {
-//                             "id": "COMP_SCI_ENGG",
-//                             "parent_category_id": "COMP_SCI_ENGG",
-//                             "descriptor": {
-//                                 "name": "COMP_SCI_ENGG"
-//                             }
-//                         }
-//                     ],
-//                     "items": [
-//                         {
-//                             "id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDI=",
-//                             "parent_item_id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDI=",
-//                             "descriptor": {
-//                                 "name": "Problem solving Aspects and Python Programming",
-//                                 "long_desc": "",
-//                                 "images": [
-//                                     {
-//                                         "url": "https://storage.googleapis.com/swayam-node2-production.appspot.com/assets/img/cec20_cs04/Course%20Image.png"
-//                                     }
-//                                 ]
-//                             },
-//                             "price": {
-//                                 "currency": "INR",
-//                                 "value": "0"
-//                             },
-//                             "category_id": "COMP_SCI_ENGG",
-//                             "recommended": false,
-//                             "time": {
-//                                 "label": "Course Schedule",
-//                                 "duration": "P12W",
-//                                 "range": {
-//                                     "start": "2023-01-17T18:30:00.000000Z",
-//                                     "end": "2023-04-09T18:29:00.000000Z"
-//                                 }
-//                             },
-//                             "rating": "4",
-//                             "tags": [
-//                                 {
-//                                     "descriptor": {
-//                                         "name": "courseInfo"
-//                                     },
-//                                     "list": [
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "credits"
-//                                             },
-//                                             "value": "4"
-//                                         },
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "instructors"
-//                                             },
-//                                             "value": "Dr.S.Malliga, Dr.R.Thangarajan, Dr.S.V.Kogilavani"
-//                                         },
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "offeringInstitue"
-//                                             },
-//                                             "value": "Kongu Engineering College"
-//                                         },
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "url"
-//                                             },
-//                                             "value": "https://onlinecourses.swayam2.ac.in/cec23_cs02/preview"
-//                                         },
-//                                         {
-//                                             "decsriptor": {
-//                                                 "name": "enrollmentEndDate"
-//                                             },
-//                                             "value": "2023-02-28T18:29:00.000000Z"
-//                                         }
-//                                     ],
-//                                     "display": true
-//                                 }
-//                             ],
-//                             "rateable": false
-//                         },
-//                         {
-//                             "id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDY=",
-//                             "parent_item_id": "Q291cnNlTGlzdDovbmQyX2NlYzIzX2NzMDY=",
-//                             "descriptor": {
-//                                 "name": "Programming in Python",
-//                                 "long_desc": "",
-//                                 "images": [
-//                                     {
-//                                         "url": "https://storage.googleapis.com/swayam-node2-production.appspot.com/assets/img/cec22_cs20/pymainlogo.jpg"
-//                                     }
-//                                 ]
-//                             },
-//                             "price": {
-//                                 "currency": "INR",
-//                                 "value": "0"
-//                             },
-//                             "category_id": "COMP_SCI_ENGG",
-//                             "recommended": false,
-//                             "time": {
-//                                 "label": "Course Schedule",
-//                                 "duration": "P12W",
-//                                 "range": {
-//                                     "start": "2023-01-22T18:30:00.000000Z",
-//                                     "end": "2023-04-16T18:29:00.000000Z"
-//                                 }
-//                             },
-//                             "rating": "5",
-//                             "tags": [
-//                                 {
-//                                     "descriptor": {
-//                                         "name": "courseInfo"
-//                                     },
-//                                     "list": [
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "credits"
-//                                             },
-//                                             "value": "4"
-//                                         },
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "instructors"
-//                                             },
-//                                             "value": "Dr. Rizwan Rehman"
-//                                         },
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "offeringInstitue"
-//                                             },
-//                                             "value": "Dibrugarh University"
-//                                         },
-//                                         {
-//                                             "descriptor": {
-//                                                 "name": "url"
-//                                             },
-//                                             "value": "https://onlinecourses.swayam2.ac.in/cec23_cs06/preview"
-//                                         },
-//                                         {
-//                                             "decsriptor": {
-//                                                 "name": "enrollmentEndDate"
-//                                             },
-//                                             "value": "2023-02-28T18:29:00.000000Z"
-//                                         }
-//                                     ],
-//                                     "display": true
-//                                 }
-//                             ],
-//                             "rateable": false
-//                         }
-//                     ]
-//                 }
-//             ]
-//         }
-//     }
-// }
-
-console.log('');
-
-// app.post(bap_uri+"/on_search", (req, res, next) => {//url has to be changed
-    
-    
-    
-
-//     const posts = [
-//         {
-//           id: "fdf12421l",
-//           title: "First server-side post",
-//           content: "This is coming from the server"
-//         },
-//         {
-//           id: "ksajflaj132",
-//           title: "Second server-side post",
-//           content: "This is coming from the server!"
-//         }
-//       ];
-//       res.status(200).json({
-//         message: "Posts fetched succesfully!",
-//         posts: posts
-//       });
-// });
-
-
-
-
-//replicate the same for select, init, confirm
-
-app.post("/select", (req, res, next) => {//select request has to be assimilated
+app.post("/select", (req, res, next) => {
     
     const post = req.body;
-    console.log(post.message.order.items[0].id);
 
     bap_uri = post.context.bap_uri;
 
@@ -1085,13 +625,10 @@ app.post("/select", (req, res, next) => {//select request has to be assimilated
     }
 });
 
-app.post("/init", (req, res, next) => {//init request has to be assimilated
+app.post("/init", (req, res, next) => {
     
     const post = req.body;
-    console.log(post.message.order.items[0].id);
-
-    console.log(post.message.order.fulfillments);
-
+    
     bap_uri = post.context.bap_uri;
 
     bap_id = post.context.bap_id;
@@ -1305,12 +842,9 @@ app.post("/init", (req, res, next) => {//init request has to be assimilated
     }
 });
 
-app.post("/confirm", (req, res, next) => {//confirm request has to be assimilated
+app.post("/confirm", (req, res, next) => {
     
     const post = req.body;
-    console.log(post.message.order.items[0].id);
-
-    console.log(post.message.order.fulfillments);
 
     bap_uri = post.context.bap_uri;
 
